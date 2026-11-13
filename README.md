@@ -2,9 +2,9 @@
 
 不用反复打开额度页，在桌面或任务栏就能查看 Codex 的 5 小时与周额度、下次重置时间，以及重置卡的剩余有效时间。
 
-版本 `0.2.5-custom.3` · Windows x64 · 公开测试版（Pre-release） · 第三方桌面工具
+版本 `0.2.6` · Windows x64 · 公开测试版（Pre-release） · 第三方桌面工具
 
-[下载 Windows x64 安装版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.5-custom.3/CodexQuotaFloatCustom-0.2.5-custom.3-Windows-x64-Setup.exe) · [下载便携版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.5-custom.3/CodexQuotaFloatCustom-0.2.5-custom.3-Windows-x64-Portable.zip) · [SHA-256 校验文件](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.5-custom.3/SHA256SUMS.txt)
+[下载 Windows x64 安装版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.6/CodexQuotaFloatCustom-0.2.6-Windows-x64-Setup.exe) · [下载便携版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.6/CodexQuotaFloatCustom-0.2.6-Windows-x64-Portable.zip) · [SHA-256 校验文件](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.6/SHA256SUMS.txt)
 
 > 这是公开测试版，已知验证范围见下文。以下界面预览均使用演示数据。
 
@@ -49,10 +49,10 @@
 
 ## 安装与开始使用
 
-从本页顶部或 [本版本发行页](https://github.com/Xucool/codex-quota-float-custom/releases/tag/v0.2.5-custom.3) 选择一种下载：
+从本页顶部或 [本版本发行页](https://github.com/Xucool/codex-quota-float-custom/releases/tag/v0.2.6) 选择一种下载：
 
-- 安装版：`CodexQuotaFloatCustom-0.2.5-custom.3-Windows-x64-Setup.exe`
-- 便携版：`CodexQuotaFloatCustom-0.2.5-custom.3-Windows-x64-Portable.zip`
+- 安装版：`CodexQuotaFloatCustom-0.2.6-Windows-x64-Setup.exe`
+- 便携版：`CodexQuotaFloatCustom-0.2.6-Windows-x64-Portable.zip`
 
 不要把 GitHub 自动生成的源码压缩包当成安装包。
 
@@ -117,7 +117,7 @@
 
 ## 版本与反馈
 
-当前版本：`0.2.5-custom.3`，说明日期：2026-11-02。变更与已知限制见 [发布说明](docs/发布说明.md)。
+当前版本：`0.2.6`，说明日期：2026-11-13。变更与已知限制见 [发布说明](docs/发布说明.md)。
 
 维护账号：[Xucool](https://github.com/Xucool) · [发布仓库](https://github.com/Xucool/codex-quota-float-custom) · [问题反馈（Issues）](https://github.com/Xucool/codex-quota-float-custom/issues)
 
@@ -128,6 +128,41 @@
 本改版基于 [Leon-z7/codex-quota-float](https://github.com/Leon-z7/codex-quota-float)，应用内部名称为 `CodexQuotaFloatCustom`。感谢原作者的项目基础。本工具不是 OpenAI 官方产品。
 
 维护者已确认获得原作者的修改与再分发授权。本仓库发布说明、截图及编译后的安装包与便携包，当前不公开改版源码；此授权说明不等于对全部源码授予新的许可，也不替代原项目及第三方依赖的许可条款。详见 [发布前检查](docs/发布前检查.md)。
+
+## 维护者构建
+
+以下用于维护者本地源码项目，公开仓库不包含对应的改版源码与构建脚本，普通使用者无需执行。需要 Windows x64、Node.js 22.12+，以及能够构建 .NET Framework 4.6.1 目标项目的 .NET SDK。
+
+```powershell
+cd desktop
+npm ci
+npm test
+node ..\scripts\validate.mjs
+npm run release:win
+```
+
+`package:win` 仅生成应用目录：`desktop/release/0.2.6/CodexQuotaFloatCustom-win32-x64`。目录包含 Electron 必需运行文件与现用 `TaskbarHost`，不能只复制主程序。
+
+`release:win` 从干净目录独立生成安装版和便携版，无需先运行 `package:win`。需要固定版本的 Electron 本地缓存，以及 Inno Setup 编译器：
+
+- Electron 缓存可通过 `ELECTRON_ZIP_DIR` 指定，也可使用脚本识别到的本机缓存；缺少缓存时停止，不反复下载。
+- Inno Setup 可通过 `QUOTA_ISCC` 指定 `ISCC.exe`，默认位置为 `build-cache/release-tools/inno-7.1.1/ISCC.exe`。
+
+最终产物位于 `desktop/release/publish/`：
+
+- `CodexQuotaFloatCustom-0.2.6-Windows-x64-Setup.exe`
+- `CodexQuotaFloatCustom-0.2.6-Windows-x64-Portable.zip`
+- `SHA256SUMS.txt`：最终发布文件的校验值。
+- `release-manifest.json`：本地打包清单。
+
+安装包不应从个人正在使用的旧目录直接制作。`package:win` 另支持用 `QUOTA_BUILD_TMP` 指定暂存目录、`QUOTA_PACKAGE_OUT` 指定应用目录输出位置。
+
+## 本次更新
+
+- 更新偏好设置下拉菜单，调整重置时间居中、窗口样式行及重置卡弹窗布局。
+- 偶发悬停无法展开仍需继续观察，尚不宣称彻底解决。
+- 本次通过 69 项自动化测试；未执行安装包安装实测及真实重置卡消耗。
+- 下方截图已按本版重新生成，均为演示数据；任务栏文字预览沿用上版。
 
 ## 简要历史
 
