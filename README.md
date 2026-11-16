@@ -2,9 +2,9 @@
 
 不用反复打开额度页，在桌面或任务栏就能查看 Codex 的 5 小时与周额度、下次重置时间，以及重置卡的剩余有效时间。
 
-版本 `0.2.6` · Windows x64 · 公开测试版（Pre-release） · 第三方桌面工具
+版本 `0.2.7` · Windows x64 · 公开测试版（Pre-release） · 第三方桌面工具
 
-[下载 Windows x64 安装版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.6/CodexQuotaFloatCustom-0.2.6-Windows-x64-Setup.exe) · [下载便携版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.6/CodexQuotaFloatCustom-0.2.6-Windows-x64-Portable.zip) · [SHA-256 校验文件](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.6/SHA256SUMS.txt)
+[下载 Windows x64 安装版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.7/CodexQuotaFloatCustom-0.2.7-Windows-x64-Setup.exe) · [下载便携版](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.7/CodexQuotaFloatCustom-0.2.7-Windows-x64-Portable.zip) · [SHA-256 校验文件](https://github.com/Xucool/codex-quota-float-custom/releases/download/v0.2.7/SHA256SUMS.txt)
 
 > 这是公开测试版，已知验证范围见下文。以下界面预览均使用演示数据。
 
@@ -49,10 +49,10 @@
 
 ## 安装与开始使用
 
-从本页顶部或 [本版本发行页](https://github.com/Xucool/codex-quota-float-custom/releases/tag/v0.2.6) 选择一种下载：
+从本页顶部或 [本版本发行页](https://github.com/Xucool/codex-quota-float-custom/releases/tag/v0.2.7) 选择一种下载：
 
-- 安装版：`CodexQuotaFloatCustom-0.2.6-Windows-x64-Setup.exe`
-- 便携版：`CodexQuotaFloatCustom-0.2.6-Windows-x64-Portable.zip`
+- 安装版：`CodexQuotaFloatCustom-0.2.7-Windows-x64-Setup.exe`
+- 便携版：`CodexQuotaFloatCustom-0.2.7-Windows-x64-Portable.zip`
 
 不要把 GitHub 自动生成的源码压缩包当成安装包。
 
@@ -117,7 +117,7 @@
 
 ## 版本与反馈
 
-当前版本：`0.2.6`，说明日期：2026-11-13。变更与已知限制见 [发布说明](docs/发布说明.md)。
+当前版本：`0.2.7`，说明日期：2026-11-16。变更与已知限制见 [发布说明](docs/发布说明.md)。
 
 维护账号：[Xucool](https://github.com/Xucool) · [发布仓库](https://github.com/Xucool/codex-quota-float-custom) · [问题反馈（Issues）](https://github.com/Xucool/codex-quota-float-custom/issues)
 
@@ -141,7 +141,7 @@ node ..\scripts\validate.mjs
 npm run release:win
 ```
 
-`package:win` 仅生成应用目录：`desktop/release/0.2.6/CodexQuotaFloatCustom-win32-x64`。目录包含 Electron 必需运行文件与现用 `TaskbarHost`，不能只复制主程序。
+`package:win` 仅生成应用目录：`desktop/release/0.2.7/CodexQuotaFloatCustom-win32-x64`。目录包含 Electron 必需运行文件与现用 `TaskbarHost`，不能只复制主程序。
 
 `release:win` 从干净目录独立生成安装版和便携版，无需先运行 `package:win`。需要固定版本的 Electron 本地缓存，以及 Inno Setup 编译器：
 
@@ -150,8 +150,8 @@ npm run release:win
 
 最终产物位于 `desktop/release/publish/`：
 
-- `CodexQuotaFloatCustom-0.2.6-Windows-x64-Setup.exe`
-- `CodexQuotaFloatCustom-0.2.6-Windows-x64-Portable.zip`
+- `CodexQuotaFloatCustom-0.2.7-Windows-x64-Setup.exe`
+- `CodexQuotaFloatCustom-0.2.7-Windows-x64-Portable.zip`
 - `SHA256SUMS.txt`：最终发布文件的校验值。
 - `release-manifest.json`：本地打包清单。
 
@@ -159,10 +159,11 @@ npm run release:win
 
 ## 本次更新
 
-- 更新偏好设置下拉菜单，调整重置时间居中、窗口样式行及重置卡弹窗布局。
-- 偶发悬停无法展开仍需继续观察，尚不宣称彻底解决。
-- 本次通过 69 项自动化测试；未执行安装包安装实测及真实重置卡消耗。
-- 下方截图已按本版重新生成，均为演示数据；任务栏文字预览沿用上版。
+- 修复任务栏菜单等待确认卡住后，悬停无法重新打开额度面板的已知路径。
+- 增加 500 毫秒恢复处理，清理过期菜单状态和计时器。
+- 69 项自动化测试通过，包含丢失确认、超时恢复及过期确认回归检查。
+- 界面布局未变，预览图沿用 v0.2.6 演示截图。
+- 未执行本次安装包实机安装；其他原因造成的悬停异常仍需观察。
 
 ## 简要历史
 
